@@ -1,3 +1,5 @@
+[English](README.md) | [日本語](README.ja.md)
+
 # osnap
 
 `osnap` is a small macOS screenshot CLI for capturing exactly what you ask for —
