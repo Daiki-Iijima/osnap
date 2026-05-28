@@ -24,14 +24,25 @@ that could not be automated.
 
 ## Demo
 
+A menu-bar extra popup, captured with `osnap`:
+
+![example popup](docs/example-popup.png)
+
+The image is exactly the popup window — no surrounding desktop, no other apps,
+no menu-bar strip. The corresponding pipeline:
+
 ```
-osnap list --include-menu                 # find the popup window ID
-osnap window 1149 --out menu.png          # capture just that window
+osascript -e 'tell application "System Events" to tell process "<app>" \
+    to click menu bar item 1 of menu bar 2'
+ID=$(osnap list --include-menu | awk '/<app>/ {print $1; exit}')
+osnap window "$ID" --out popup.png
 ```
 
-Result: a clean PNG of the popup with a transparent background, no surrounding
-desktop content. See `scribe`'s
-[`docs/screenshots/`](../../docs/screenshots/) for examples.
+Or, when the app supports Accessibility automation:
+
+```
+osnap menubar-popup <app> --out popup.png
+```
 
 ## Requirements
 

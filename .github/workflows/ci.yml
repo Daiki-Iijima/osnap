@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: swift build (release) on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, macos-15]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show toolchain
+        run: |
+          swift --version
+          xcodebuild -version
+
+      - name: Resolve dependencies
+        run: swift package resolve
+
+      - name: Build (release)
+        run: swift build -c release
+
+      - name: Smoke test
+        run: |
+          ./.build/release/osnap --help
+          ./.build/release/osnap list --help
+          ./.build/release/osnap region --help
+          ./.build/release/osnap window --help
+          ./.build/release/osnap app --help
+          ./.build/release/osnap menubar-popup --help
+          ./.build/release/osnap popup-wait --help
