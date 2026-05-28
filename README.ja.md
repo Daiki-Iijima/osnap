@@ -193,6 +193,30 @@ swift test
   「今クリックで開いた特定のもの」を `screencapture` に教える術がありません。
   `osnap` がその割り出しを担当します。
 
+## Claude Code から使う
+
+このリポジトリには Claude Code 用の skill が `.claude/skills/osnap/SKILL.md`
+に同梱されています。これを入れておくと、Claude Code が「macOS で部分的な
+スクリーンショットを撮る」タスクを認識した時に `screencapture` の全画面撮影に
+頼らず、自動的に `osnap` を選ぶようになります。
+
+ユーザー単位でインストール:
+
+```
+mkdir -p ~/.claude/skills
+cp -r .claude/skills/osnap ~/.claude/skills/osnap
+```
+
+プロジェクト単位 (そのリポジトリでだけ有効):
+
+```
+mkdir -p <your-repo>/.claude/skills
+cp -r .claude/skills/osnap <your-repo>/.claude/skills/osnap
+```
+
+Claude Code の Bash ツールから呼べるよう `osnap` バイナリを `PATH` に通して
+おいてください (例: `cp .build/release/osnap /usr/local/bin/`)。
+
 ## プロジェクト構成
 
 ```

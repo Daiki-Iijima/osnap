@@ -195,6 +195,30 @@ swift test
 - AppleScript alone — can click menu items but cannot tell `screencapture`
   *which* of the resulting windows it just opened. `osnap` does that lookup.
 
+## Use with Claude Code
+
+This repository ships a [Claude Code](https://claude.com/claude-code) skill at
+`.claude/skills/osnap/SKILL.md`. With it installed, Claude Code will reach for
+`osnap` automatically when a task involves taking a targeted macOS screenshot,
+instead of falling back to a full-display `screencapture`.
+
+Install per-user:
+
+```
+mkdir -p ~/.claude/skills
+cp -r .claude/skills/osnap ~/.claude/skills/osnap
+```
+
+Or per-project (only active inside that repo):
+
+```
+mkdir -p <your-repo>/.claude/skills
+cp -r .claude/skills/osnap <your-repo>/.claude/skills/osnap
+```
+
+Make sure the `osnap` binary is on Claude Code's `PATH` (for example by
+`cp .build/release/osnap /usr/local/bin/`) so the Bash tool can invoke it.
+
 ## Project layout
 
 ```
